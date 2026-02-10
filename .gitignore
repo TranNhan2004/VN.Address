@@ -1,0 +1,95 @@
+##################################
+# .NET / Visual Studio / Rider
+##################################
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+**/bin/
+**/obj/
+**/BuildHost-*/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# Rider specific
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/contentModel.xml
+.idea/**/modules.xml
+.idea/**/.name
+.idea/**/shelf/
+.idea/**/dataSources/
+.idea/**/dataSources.local.xml
+
+##################################
+# .NET Core
+##################################
+
+# ASP.NET Core
+appsettings.Development.json
+appsettings.Local.json
+
+# User secrets
+secrets.json
+
+# EF Core
+Migrations/*.Designer.cs
+Migrations/*.resx
+
+##################################
+# Test / Coverage
+##################################
+
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+coverage.cobertura.xml
+
+##################################
+# Publish
+##################################
+
+publish/
+*.publishsettings
+
+##################################
+# OS
+##################################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+
+# Env
+.env*
+!.env.example

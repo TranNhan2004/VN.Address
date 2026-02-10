@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VN.Address", "VN.Address\VN.Address.csproj", "{36C3DB2D-5BFC-4A8D-B0F4-4C49CBD9CC4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VN.Address.Tests", "VN.Address.Tests\VN.Address.Tests.csproj", "{F56F98E8-055B-40E8-8C8E-43FB710E3D0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{ADE4AC7F-9456-4EB7-A551-AE94D1DC203C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36C3DB2D-5BFC-4A8D-B0F4-4C49CBD9CC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C3DB2D-5BFC-4A8D-B0F4-4C49CBD9CC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C3DB2D-5BFC-4A8D-B0F4-4C49CBD9CC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C3DB2D-5BFC-4A8D-B0F4-4C49CBD9CC4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F56F98E8-055B-40E8-8C8E-43FB710E3D0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F56F98E8-055B-40E8-8C8E-43FB710E3D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F56F98E8-055B-40E8-8C8E-43FB710E3D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F56F98E8-055B-40E8-8C8E-43FB710E3D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

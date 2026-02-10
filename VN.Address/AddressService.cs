@@ -1,71 +1,67 @@
-﻿using System.Reflection;
+﻿using System.Collections.Frozen;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace VN.Address;
 
-public static class AddressService
+/// <summary>
+/// Service providing high-performance validation for Vietnamese addresses using .NET 10 features.
+/// </summary>
+public static partial class AddressService
 {
-    private static readonly Dictionary<string, HashSet<string>> AddressDatabase;
+    private static readonly FrozenDictionary<string, FrozenSet<string>> AddressDatabase;
 
     static AddressService()
     {
         AddressDatabase = LoadDatabase();
     }
 
-    private static Dictionary<string, HashSet<string>> LoadDatabase()
+    private static FrozenDictionary<string, FrozenSet<string>> LoadDatabase()
     {
         var assembly = Assembly.GetExecutingAssembly();
         const string resourcePath = "VN.Address.Resources.data.json";
 
         using var stream = assembly.GetManifestResourceStream(resourcePath);
         if (stream is null) 
-            throw new FileNotFoundException("Resource data.json not found.");
-
-        using var reader = new StreamReader(stream);
-        var json = reader.ReadToEnd();
-
-        var provinces = JsonSerializer.Deserialize<List<ProvinceModel>>(json);
+            throw new FileNotFoundException("Administrative data resource not found.");
+        
+        var provinces = JsonSerializer.Deserialize<List<ProvinceModel>>(stream);
         
         if (provinces is null)
-            throw new FileNotFoundException("Provinces not found.");
+            throw new InvalidDataException("Failed to parse province data.");
         
         return provinces.ToDictionary(
             p => p.Name,
-            p => new HashSet<string>(p.Wards.Select(w => w.Name), StringComparer.OrdinalIgnoreCase),
+            p => p.Wards.Select(w => w.Name).ToFrozenSet(StringComparer.OrdinalIgnoreCase),
             StringComparer.OrdinalIgnoreCase
-        );
+        ).ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
     }
 
     /// <summary>
     /// Checks if the string contains only valid characters for Vietnamese names.
-    /// (Letters, numbers, spaces, and basic punctuation).
     /// </summary>
     public static bool IsValidCharacters(string input)
     {
         if (string.IsNullOrWhiteSpace(input)) return false;
-        // Regex to allow Vietnamese Unicode characters and standard text
-        var regex = new Regex(@"^[\p{L}\p{M}0-9\s\-,.]+$");
-        return regex.IsMatch(input);
+        return VietnameseNameRegex().IsMatch(input);
     }
 
     /// <summary>
-    /// Validates if a province name exists and is correctly formatted.
+    /// Validates if a province name exists.
     /// </summary>
     public static bool IsValidProvince(string provinceName)
     {
-        if (!IsValidCharacters(provinceName)) return false;
+        if (string.IsNullOrWhiteSpace(provinceName)) return false;
         return AddressDatabase.ContainsKey(provinceName.Trim());
     }
 
     /// <summary>
     /// Strictly validates if a ward belongs to a specific province.
     /// </summary>
-    /// <param name="provinceName">Full name of the province</param>
-    /// <param name="wardName">Full name of the ward/commune</param>
     public static bool IsValidAddressPair(string provinceName, string wardName)
     {
-        if (!IsValidCharacters(provinceName) || !IsValidCharacters(wardName))
+        if (string.IsNullOrWhiteSpace(provinceName) || string.IsNullOrWhiteSpace(wardName))
             return false;
 
         if (AddressDatabase.TryGetValue(provinceName.Trim(), out var wards))
@@ -79,8 +75,9 @@ public static class AddressService
     /// <summary>
     /// Returns all provinces available in the 2025 data.
     /// </summary>
-    public static List<string> GetAllProvinces() => AddressDatabase.Keys.ToList();
+    public static IReadOnlyCollection<string> GetAllProvinces() => AddressDatabase.Keys;
+
+    // Source Generator 
+    [GeneratedRegex(@"^[\p{L}\p{M}0-9\s\-,.]+$", RegexOptions.Compiled)]
+    private static partial Regex VietnameseNameRegex();
 }
-
-
-

@@ -4,13 +4,21 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <PackageId>VN.Address</PackageId>
         <Version>1.0.0</Version>
         <Authors>NhanTran</Authors>
-        <Description>Latest 2025 Vietnam administrative address validator.</Description>
+
+        <Description>A lightweight and high-performance library for validating Vietnam administrative addresses (Provinces/Wards) based on 2025 data.</Description>
+
+        <PackageTags>vietnam;address;provinces;wards;2025;validator</PackageTags>
+        <RepositoryUrl>https://github.com/yourusername/VN.Address2025</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\LICENSE" Pack="true" PackagePath="\" />
@@ -21,7 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Text.Json" Version="10.0.2" />
+        <PackageReference Include="System.Text.Json" Version="10.0.*" />
     </ItemGroup>
 
 </Project>

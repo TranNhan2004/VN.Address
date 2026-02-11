@@ -71,11 +71,16 @@ public static partial class AddressService
 
         return false;
     }
-
+    
     /// <summary>
     /// Returns all provinces available in the 2025 data.
     /// </summary>
-    public static IReadOnlyCollection<string> GetAllProvinces() => AddressDatabase.Keys;
+    public static IEnumerable<string> GetAllProvinces() => AddressDatabase.Keys;
+    
+    /// <summary>
+    /// Returns all addresses in the 2025 data.
+    /// </summary>
+    public static FrozenDictionary<string, FrozenSet<string>> GetAllAddresses() => AddressDatabase;
 
     // Source Generator 
     [GeneratedRegex(@"^[\p{L}\p{M}0-9\s\-,.]+$", RegexOptions.Compiled)]
